@@ -1,9 +1,13 @@
 # MalToN
 
-This malware is a homage to the famous old school virus "MEMZ", this malware is a visual-only type one, so don't be afraid to run it locally! Enjoy the visuals!
+**MalToN** is a playful homage to the legendary **MEMZ** virus — a pure **visual-only** chaos simulator.  
+It’s **harmless**, **safe to run locally**, and designed purely for fun and experimentation.  
+Expect screen glitches, screen recursive moves, and a nostalgic touch of sounds and popups.
 
 
 # Usage
+
+Make sure you're on **Windows** with **MinGW** or a C++ compiler that supports `-lgdi32` and `-lwinmm`.
 
 Compile the code with 
 ```

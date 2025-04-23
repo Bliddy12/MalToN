@@ -24,25 +24,19 @@ DWORD WINAPI windowsSounds(void*) {
         TEXT("WindowsLogoff"),
         TEXT("WindowsLogon"),
     };
-
-
     int sleepTime = 200;
     int elapsedSeconds = 0;
-
     while (true) { 
         int random = rand() % (sizeof(systemSounds) / sizeof(systemSounds[0]));
         PlaySound(systemSounds[random], NULL, SND_ASYNC); 
         Sleep(sleepTime);
         elapsedSeconds++;
-
         if (elapsedSeconds % 20 == 0) {
             if (sleepTime > 20) {
                 sleepTime -= 20; 
             }
         }
     }
-
-
 }
 
 DWORD WINAPI tunnelEffect(void*) {
@@ -58,7 +52,6 @@ DWORD WINAPI tunnelEffect(void*) {
         Sleep(sleepTime);
         ReleaseDC(NULL, hdc);
         elapsedSeconds++;
-
         if (elapsedSeconds % 30 == 0) {
             if (sleepTime > 20) {
                 sleepTime -= 20; 
@@ -72,10 +65,8 @@ DWORD WINAPI changePixels(void*) {
     while (true) {
         int x = GetSystemMetrics(SM_CXSCREEN);
         int y = GetSystemMetrics(SM_CYSCREEN);   
-
         HDC hdc5 = GetDC(NULL);
-        COLORREF color = GetPixel(hdc5, rand() % x, rand() % y);
-             
+        COLORREF color = GetPixel(hdc5, rand() % x, rand() % y);  
         int blockSize = 1000;
         for (int i = 0; i < blockSize; ++i) {
             for (int j = 0; j < blockSize; ++j) {
@@ -85,14 +76,11 @@ DWORD WINAPI changePixels(void*) {
                 SetPixel(hdc5, (rand() % x) + i, (rand() % y) + j, RGB(GetRValue(color), GetGValue(color), GetBValue(color)));
             }
         }
-
         ReleaseDC(NULL, hdc5);
         Sleep(10000); 
     }
     return 0;
-
 }
-
 
 DWORD WINAPI randomSites(void*) {
     srand((time(NULL)));
@@ -110,7 +98,6 @@ DWORD WINAPI randomGDIDrawing(void*) {
     int centerX = GetSystemMetrics(SM_CXSCREEN) / 2; 
     int centerY = GetSystemMetrics(SM_CYSCREEN) / 2;  
     int radius = 2000; 
-
     while (true) {
             for (double angle = 0; angle < 360; angle += 0.5) { 
                 HDC hdc3 = GetDC(NULL);
@@ -127,7 +114,6 @@ DWORD WINAPI randomGDIDrawing(void*) {
     }
     return 0;
 }
-
 
 DWORD WINAPI invert(void*)
 {
@@ -148,7 +134,6 @@ LRESULT CALLBACK msgBoxHook(int nCode, WPARAM wParam, LPARAM lParam) {
     srand((time(NULL)));
 	if (nCode == HCBT_CREATEWND) {
         CREATESTRUCT* pcs = ((CBT_CREATEWND*)lParam)->lpcs;
-
         if ((pcs->style & WS_DLGFRAME) || (pcs->style & WS_POPUP)) {
             int screenWidth = GetSystemMetrics(SM_CXSCREEN);
             int screenHeight = GetSystemMetrics(SM_CYSCREEN);
@@ -156,10 +141,8 @@ LRESULT CALLBACK msgBoxHook(int nCode, WPARAM wParam, LPARAM lParam) {
             pcs->y = rand() % (screenHeight - pcs->cy);
         }
 	}
-
 	return CallNextHookEx(0, nCode, wParam, lParam);
 }
-
 
 DWORD WINAPI createBox(void*) {
     srand((time(NULL)));
@@ -250,7 +233,7 @@ int main() {
     HANDLE hThread9 = CreateThread(NULL, 0, tunnelEffect, NULL, 0, NULL);
 
     WaitForSingleObject(hThread, INFINITE);
-    //WaitForSingleObject(hThread2, INFINITE);
+    WaitForSingleObject(hThread2, INFINITE);
     WaitForSingleObject(hThread3, INFINITE);
     WaitForSingleObject(hThread4, INFINITE);
     WaitForSingleObject(hThread5, INFINITE);
